@@ -1,7 +1,14 @@
-import React from "react";
+// const Hello = (props) => {
+//     return `Hello ${props.name}`;
+// };
 
-function Hello() {
-    return <h1>Hello Zulkifli</h1>;
-}
+const Hello = ({ name }) => {
+    return `Hello ${name}`;
+};
+
+// default props
+Hello.defaultProps = {
+    name: "Zulkifli",
+};
 
 export default Hello;
