@@ -1,12 +1,15 @@
 import React from "react";
 import "./App.css";
-import Table from "./Table";
+import Button from "./Button";
 
 function App() {
+    function info() {
+        alert("Lorem ipsum");
+    }
     return (
         <div className="App">
             <header className="App-header">
-                <Table />
+                <Button callAlert={info} caption="Clicked me" />
             </header>
         </div>
     );
