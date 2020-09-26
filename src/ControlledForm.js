@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import InputCheckbox from "./InputCheckbox";
+import InputRadio from "./InputRadio";
+import InputText from "./InputText";
+import InputTextArea from "./InputTextArea";
 
 function ControlledForm() {
     const [name, setName] = useState("");
     const [member, setMember] = useState(false);
     const [gender, setGender] = useState(0);
     const [comment, setComment] = useState("");
-    const [category, setCategory] = useState("food");
+    const [category, setCategory] = useState("");
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -15,53 +19,36 @@ function ControlledForm() {
 
     return (
         <form onSubmit={handleSubmit}>
+            <InputText
+                label="Your Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            />
             <div>
-                <label htmlFor="name">
-                    Your name:
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </label>
+                <InputCheckbox
+                    label="Member"
+                    value={member}
+                    onChange={(e) => setMember(e.target.checked)}
+                />
             </div>
             <div>
-                <label htmlFor="member">
-                    Member:
-                    <input
-                        type="checkbox"
-                        checked={member}
-                        onChange={(e) => setMember(e.target.checked)}
-                    />
-                </label>
+                <InputRadio
+                    label="Male"
+                    checked={gender === 0}
+                    onChange={() => setGender(0)}
+                />
+                <InputRadio
+                    label="Female"
+                    checked={gender === 1}
+                    onChange={() => setGender(1)}
+                />
             </div>
             <div>
-                <label htmlFor="gender">
-                    Gender:
-                    <input
-                        type="radio"
-                        checked={gender === 0}
-                        onChange={() => setGender(0)}
-                    />
-                    Male
-                    <input
-                        type="radio"
-                        checked={gender === 1}
-                        onChange={() => setGender(1)}
-                    />
-                    Female
-                </label>
-            </div>
-            <div>
-                <label htmlFor="comment">
-                    Comment:
-                    <textarea
-                        cols="10"
-                        rows="2"
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                    ></textarea>
-                </label>
+                <InputTextArea
+                    label="Comment"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                />
             </div>
             <div>
                 <label htmlFor="category">Category</label>
