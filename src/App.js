@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import MultipleForm from "./MultipleForm";
+import FormBasicValidation from "./FormBasicValidation";
 
 function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <MultipleForm />
+                <FormBasicValidation />
             </header>
         </div>
     );
