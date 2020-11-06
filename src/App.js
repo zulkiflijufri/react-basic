@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Redirect, Route, Switch } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import "./App.css";
 import About from "./pages/About";
 import Home from "./pages/Home";
@@ -11,6 +11,41 @@ import Member from "./components/Member";
 
 function App() {
     const [isLogin, setLogin] = React.useState(false);
+
+    const routes = [
+        {
+            path: "/",
+            Component: Home,
+            props: {
+                exact: true,
+            },
+        },
+        {
+            path: "/about",
+            Component: About,
+        },
+        {
+            path: "/member",
+            Component: Member,
+            props: {
+                auth: true,
+                isLogin: isLogin,
+            },
+        },
+        {
+            path: "/login",
+            Component: Login,
+            childProps: { setLogin },
+        },
+        {
+            path: "/category",
+            Component: Category,
+        },
+        {
+            path: "/post/:id",
+            Component: Post,
+        },
+    ];
 
     return (
         <div className="App">
@@ -55,24 +90,19 @@ function App() {
             </ul>
             <div className="main">
                 <Switch>
-                    <Route exact path="/">
-                        <Home />
-                    </Route>
-                    <Route path="/about">
-                        <About />
-                    </Route>
-                    <Route path="/category">
-                        <Category />
-                    </Route>
-                    <Route path="/post/:id">
-                        <Post />
-                    </Route>
-                    <Route path="/login">
-                        <Login setLogin={setLogin} />
-                    </Route>
-                    <GuardRoute path="/member" isLogin={isLogin}>
-                        <Member />
-                    </GuardRoute>
+                    {routes.map((route, i) => {
+                        const { path, Component, props, childProps } = route;
+
+                        return props && props.auth ? (
+                            <GuardRoute key={i} path={path} {...props}>
+                                <Component {...childProps} />
+                            </GuardRoute>
+                        ) : (
+                            <Route key={i} path={path} {...props}>
+                                <Component {...childProps} />
+                            </Route>
+                        );
+                    })}
                 </Switch>
             </div>
         </div>
