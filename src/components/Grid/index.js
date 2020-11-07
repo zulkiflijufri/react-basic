@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addTile, removeTile } from "../../features/Grid/action";
+import { addTileWithChecking, removeTile } from "../../features/Grid/action";
 import Tile from "../Tile";
 import TileButton from "../TileButton";
 
@@ -32,7 +32,9 @@ export default function Grid() {
                         <TileButton
                             key={color}
                             color={color}
-                            onClick={(_) => dispatch(addTile(color))}
+                            onClick={(_) =>
+                                dispatch(addTileWithChecking(color))
+                            }
                         />
                     );
                 })}
